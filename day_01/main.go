@@ -6,6 +6,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func partOne(expenses []int) int {
@@ -50,6 +51,9 @@ func main() {
 	}
 
 	expenses := mapToInt(strings.Split(string(expenseReport), "\n"))
+	start := time.Now();
 	fmt.Printf("Part one: %d\n", partOne(expenses))
 	fmt.Printf("Part two: %d\n", partTwo(expenses))
+	end := time.Now();
+	fmt.Printf("This solution took: %fms \n", float64(end.Sub(start).Microseconds()) / 1000)
 }
