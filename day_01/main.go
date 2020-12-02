@@ -45,12 +45,12 @@ func mapToInt(array []string) []int {
 }
 
 func main() {
-	expenseReport, err := ioutil.ReadFile("input.txt")
+	input, err := ioutil.ReadFile("input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	expenses := mapToInt(strings.Split(string(expenseReport), "\n"))
+	expenses := mapToInt(strings.Split(string(input), "\n"))
 	start := time.Now()
 	fmt.Printf("Part one: %d\n", partOne(expenses))
 	fmt.Printf("Part two: %d\n", partTwo(expenses))
