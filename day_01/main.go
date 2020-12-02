@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func getExpenseSum(expenses []int) int {
+func partOne(expenses []int) int {
 	for _, expense := range expenses {
 		for _, expense2 := range expenses {
 			if expense+expense2 == 2020 {
@@ -19,11 +19,24 @@ func getExpenseSum(expenses []int) int {
 	return -1
 }
 
+func partTwo(expenses []int) int {
+	for _, expense := range expenses {
+		for _, expense2 := range expenses {
+			for _, expense3 := range expenses {
+				if expense+expense2+expense3 == 2020 {
+					return expense * expense2 * expense3
+				}
+			}
+		}
+	}
+	return -1
+}
+
 func mapToInt(array []string) []int {
-	intArray := make([]int, len(array))
+	intArray := make([]int, 0)
 	for _, value := range array {
 		num, err := strconv.Atoi(value)
-		if err == nil {
+		if err == nil && num != 0 {
 			intArray = append(intArray, num)
 		}
 	}
@@ -37,5 +50,6 @@ func main() {
 	}
 
 	expenses := mapToInt(strings.Split(string(expenseReport), "\n"))
-	fmt.Printf("%d\n", getExpenseSum(expenses))
+	fmt.Printf("Part one: %d\n", partOne(expenses))
+	fmt.Printf("Part two: %d\n", partTwo(expenses))
 }
