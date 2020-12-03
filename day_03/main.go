@@ -18,8 +18,7 @@ func traverseSlope(lines []string, xStep int, yStep int) (trees int) {
 		y += yStep
 
 		if y < len(lines) && len(lines[y]) > 0 {
-			realX := x % len(lines[y])
-			if string(lines[y][realX]) == "#" {
+			if string(lines[y][x%len(lines[y])]) == "#" {
 				trees++
 			}
 		} else {
