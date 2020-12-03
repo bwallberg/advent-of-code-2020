@@ -50,10 +50,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	expenses := mapToInt(strings.Split(string(input), "\n"))
+	lines := mapToInt(strings.Split(string(input), "\n"))
+
 	start := time.Now()
-	fmt.Printf("Part one: %d\n", partOne(expenses))
-	fmt.Printf("Part two: %d\n", partTwo(expenses))
+	fmt.Printf("Part one: %d\n", partOne(lines))
+	fmt.Printf("Part two: %d\n", partTwo(lines))
 	end := time.Now()
 	fmt.Printf("This solution took: %fms \n", float64(end.Sub(start).Microseconds())/1000)
 }

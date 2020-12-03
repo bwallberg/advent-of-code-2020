@@ -81,11 +81,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	passwords := strings.Split(string(input), "\n")
+	lines := strings.Split(string(input), "\n")
 
 	start := time.Now()
-	fmt.Printf("Part one: %d\n", partOne(passwords))
-	fmt.Printf("Part one: %d\n", partTwo(passwords))
+	fmt.Printf("Part one: %d\n", partOne(lines))
+	fmt.Printf("Part one: %d\n", partTwo(lines))
 	end := time.Now()
 	fmt.Printf("This solution took: %fms \n", float64(end.Sub(start).Microseconds())/1000)
 }
