@@ -23,6 +23,9 @@ func partOne(expenses []int) int {
 func partTwo(expenses []int) int {
 	for _, expense := range expenses {
 		for _, expense2 := range expenses {
+			if expense+expense2 > 2020 {
+				continue
+			}
 			for _, expense3 := range expenses {
 				if expense+expense2+expense3 == 2020 {
 					return expense * expense2 * expense3
