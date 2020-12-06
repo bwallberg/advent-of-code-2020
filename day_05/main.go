@@ -7,6 +7,7 @@ import (
 	"math"
 	"strings"
 	"time"
+	"sort"
 )
 
 func getRow(ticket string) (row int) {
@@ -64,18 +65,18 @@ func partOne(tickets []string) int {
 }
 
 func partTwo(tickets []string) (seatID int) {
-	var seatIDs []int;
+	var seatIDs []int
 	for _, ticket := range tickets {
 		if len(ticket) > 0 {
-			seatIDs = append(seatIDs, getRow(ticket)*8 + getColumn(ticket))
+			seatIDs = append(seatIDs, getRow(ticket)*8+getColumn(ticket))
 		}
 	}
-
-	for i := 0; i < 127 * 8 + 7; i++ {
-			if (!contains(seatIDs, i) && contains(seatIDs, i+1) && contains(seatIDs, i-1)) {
-				seatID = i
-				break
-			}
+	sort.Ints(seatIDs)
+	for index, id := range seatIDs {
+		if seatIDs[index+1] != id+1 {
+			seatID = id+1;
+			break;
+		}
 	}
 	return seatID
 }
