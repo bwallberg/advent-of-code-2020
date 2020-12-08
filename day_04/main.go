@@ -50,17 +50,17 @@ func isValidHeight(height string) bool {
 }
 
 func isValidColor(color string) bool {
-	regex := regexp.MustCompile(`#[0-9A-Fa-f]{6}`)
+	regex := regexp.MustCompile("#[0-9A-Fa-f]{6}")
 	return regex.MatchString(color)
 }
 
 func isValidEyeColor(color string) bool {
-	regex := regexp.MustCompile(`amb|blu|brn|gry|grn|hzl|oth`)
+	regex := regexp.MustCompile("amb|blu|brn|gry|grn|hzl|oth")
 	return regex.MatchString(color)
 }
 
 func isValidPid(pid string) bool {
-	regexp := regexp.MustCompile(`^([0-9]{9})$`)
+	regexp := regexp.MustCompile("^([0-9]{9})$")
 	return regexp.MatchString(pid)
 }
 
