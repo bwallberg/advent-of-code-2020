@@ -97,7 +97,7 @@ func main() {
 
 	start := time.Now()
 	fmt.Printf("Part one: %d\n", partOne(lines))
-	fmt.Printf("Part one: %d\n", partTwo(lines))
+	fmt.Printf("Part two: %d\n", partTwo(lines))
 	end := time.Now()
 	fmt.Printf("This solution took: %fms \n", float64(end.Sub(start).Microseconds())/1000)
 }
