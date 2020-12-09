@@ -9,9 +9,17 @@ import (
 )
 
 type instruction struct {
-	Name       string
-	Argument   int
-	Executions int
+	Name     string
+	Argument int
+}
+
+func contains(slice []int, num int) bool {
+	for _, value := range slice {
+		if value == num {
+			return true
+		}
+	}
+	return false
 }
 
 func parseLines(lines []string) (instructions []instruction) {
@@ -20,23 +28,21 @@ func parseLines(lines []string) (instructions []instruction) {
 		name := parts[0]
 		argument, _ := strconv.Atoi(strings.ReplaceAll(parts[1], "+", ""))
 		instructions = append(instructions, instruction{
-			Name:       name,
-			Argument:   argument,
-			Executions: 0,
+			Name:     name,
+			Argument: argument,
 		})
 	}
 	return
 }
 
-func PartOne(lines []string) (accumulator int) {
-	instructions := parseLines(lines)
-	i := 0
-	for true {
+func runInstructions(instructions []instruction) (accumulator, i int) {
+	var log []int
+	for i < len(instructions) {
 		instruction := &instructions[i]
-		if instruction.Executions > 0 {
+		if contains(log, i) {
 			break
 		}
-		instruction.Executions = instruction.Executions + 1
+		log = append(log, i)
 		switch instruction.Name {
 		case "acc":
 			accumulator += instruction.Argument
@@ -45,19 +51,50 @@ func PartOne(lines []string) (accumulator int) {
 			i += instruction.Argument
 			break
 		}
-		if i < 0 {
-			i = len(instructions) - i
-		} else if i > len(instructions)-1 {
-			i = i % len(instructions)
-		} else if instruction.Name != "jmp" {
+		if instruction.Name != "jmp" {
 			i++
 		}
 	}
-	return accumulator
+	return accumulator, i
 }
 
-func PartTwo(lines []string) int {
-	return 0
+func PartOne(lines []string) (accumulator int) {
+	instructions := parseLines(lines)
+	accumulator, _ = runInstructions(instructions)
+	return
+}
+
+func PartTwo(lines []string) (accumulator int) {
+	instructions := parseLines(lines)
+	var potential []int
+	for i, instruction := range instructions {
+		if instruction.Name == "jmp" || instruction.Name == "nop" {
+			potential = append(potential, i)
+		}
+	}
+
+	// 🤮 not happy with this
+	for _, i := range potential {
+		instruction := &instructions[i]
+		if instruction.Name == "jmp" {
+			instruction.Name = "nop"
+		} else if instruction.Name == "nop" {
+			instruction.Name = "jmp"
+		} else {
+			continue
+		}
+		tmpAccumulator, index := runInstructions(instructions)
+		if index == len(instructions) {
+			accumulator = tmpAccumulator
+			break
+		}
+		if instruction.Name == "nop" {
+			instruction.Name = "jmp"
+		} else if instruction.Name == "jmp" {
+			instruction.Name = "nop"
+		}
+	}
+	return
 }
 
 func main() {

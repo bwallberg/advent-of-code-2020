@@ -24,9 +24,12 @@ func TestPartOne(t * testing.T) {
 	}
 }
 
-// func TestPartTwo(* testing.T) {
-// 	PartTwo(lines);
-// }
+func TestPartTwo(t * testing.T) {
+	count := PartTwo(lines);
+	if count != 8 {
+		t.Errorf("PartOne, expected: 8, got: %d", count)
+	}
+}
 
 func BenchmarkPartOne(* testing.B) {
 	PartOne(lines);
