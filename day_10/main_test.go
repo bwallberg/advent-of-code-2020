@@ -47,6 +47,10 @@ func TestPartOne(t *testing.T) {
 }
 
 func TestPartTwo(t *testing.T) {
+	result := PartTwo(lines)
+	if result != 19208 {
+		t.Errorf("PartTwo expected 19208, got: %d", result)
+	}
 }
 
 func BenchmarkPartOne(*testing.B) {

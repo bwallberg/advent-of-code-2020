@@ -19,6 +19,15 @@ func MapToInt(array []string) (intArray []int) {
 	return intArray
 }
 
+func contains(slice []int, num int) bool {
+	for _, value := range slice {
+		if value == num {
+			return true
+		}
+	}
+	return false
+}
+
 func PartOne(lines []int) int {
 	diffMap := make(map[int]int)
 	sort.Sort(sort.IntSlice(lines))
@@ -34,8 +43,29 @@ func PartOne(lines []int) int {
 	return diffMap[1] * diffMap[3]
 }
 
-func PartTwo(lines []int) int {
-	return 0
+func runPartTwo(from int, history map[int]int, lines []int) int {
+	if _, ok := history[from]; ok {
+		return history[from]
+	}
+	if from == len(lines) - 1 {
+		return 1
+	} 
+	count := 0;
+	for i := from + 1; i < len(lines); i++ {
+		diff := lines[i] - lines[from] 
+		if diff <= 3 {
+			count += runPartTwo(i, history, lines);
+		}
+	}
+	history[from] = count
+	return count 
+}
+
+func PartTwo(lines []int) (variations int) {
+	sort.Sort(sort.IntSlice(lines))
+	lines = append([]int{0}, lines...)
+	lines = append(lines, lines[len(lines)-1]+3)
+	return runPartTwo(0, make(map[int]int), lines);
 }
 
 func main() {
