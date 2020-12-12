@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var input string = ""
+var input string = ``
 var lines []string = strings.Split(input, "\n")
 
 func TestPartOne(t * testing.T) {
