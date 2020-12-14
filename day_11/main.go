@@ -31,15 +31,8 @@ func gridToString(grid grid) string {
 	return val
 }
 
-func countOccupied(grid grid) (count int) {
-	for _, row := range grid {
-		for _, col := range row {
-			if col == occupied {
-				count++
-			}
-		}
-	}
-	return
+func countOccupied(grid grid) int {
+	return strings.Count(gridToString(grid), "#")
 }
 
 func checkDir(x, y, dirX, dirY, limit int, grid grid) int {
